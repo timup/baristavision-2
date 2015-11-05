@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem "airbrake"
 gem "autoprefixer-rails"
+gem 'bootstrap-sass', '~> 3.3.5'
 gem "coffee-rails", "~> 4.1.0"
 gem "delayed_job_active_record"
 gem "devise"
