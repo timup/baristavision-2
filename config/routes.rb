@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
-  
-  root 'test#index'
 
   get "/auth/:provider/callback" => "authentications#create"
+
+  get 'home' => 'high_voltage/pages#show', id: 'home'
 
   devise_for :users
 
