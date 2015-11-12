@@ -1,10 +1,13 @@
 Rails.application.routes.draw do
 
-  get "/auth/:provider/callback" => "authentications#create"
-
   get 'home' => 'high_voltage/pages#show', id: 'home'
 
+  get 'authentication' => "authentications#index"
+
+  get "/auth/:provider/callback" => "authentications#create"
+
   devise_for :users
+  resource :authentication, only: [:destroy]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

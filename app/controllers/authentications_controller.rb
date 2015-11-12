@@ -1,4 +1,6 @@
 class AuthenticationsController < ApplicationController
+  before_action :authenticate_user!, only: [:index]
+
   def index
   end
 
@@ -42,12 +44,12 @@ class AuthenticationsController < ApplicationController
   end
 
   def destroy
-  	@authentication = current_user.authentication
-  	@authentication.destroy
+  	authentication = current_user.authentication
+  	authentication.destroy
   	# destroy all relative user items ..??
-  	current_user.orders.each { |order| order.line_items.delete_all }
-  	current_user.orders.delete_all
-  	current_user.items.delete_all
+  	# current_user.orders.each { |order| order.line_items.delete_all }
+  	# current_user.orders.delete_all
+  	# current_user.items.delete_all
 
   	flash[:notice] = "Successfully destroyed authentication."
   	redirect_to root_path
