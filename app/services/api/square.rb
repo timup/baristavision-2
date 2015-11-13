@@ -28,7 +28,6 @@ module Api
 
     # square 'items'
     def items
-    	item_ids = []
       response = query({
         :endpoint => "/v1/me/items",
         :method => :GET,
@@ -39,12 +38,6 @@ module Api
           }
         }
         })
-
-      response.each do |item|
-      	item_ids << item[:id]
-      end
-
-      return item_ids
     end
 
     private

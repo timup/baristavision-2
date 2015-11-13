@@ -1,9 +1,8 @@
 <div class="jumbotron">
   <% if user_signed_in? %>
-    <h1>Welcome back, trusted user!</h1>
+    <h1>Welcome back, <%= current_user.name %>!</h1>
     <p class="lead">
-      You have signed in!  If this were a real app some sweet conent
-      would go here.  But it's just a test.  You might want to sign out now.
+      You have signed in! <%= link_to "Authenticate", authentication_path %> your account using Clover or Square.
     </p>
     <%= link_to "Sign Out", destroy_user_session_path, :method => :delete, :class => 'btn btn-large btn-danger' %>
   <% else %>
