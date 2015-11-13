@@ -6,12 +6,5 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  # after_create :set_auth
-
-  # def set_auth
-  # 	self.create_authentication
-  # 	self.save!
-  # end
-
 
 end
