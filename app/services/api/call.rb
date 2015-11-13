@@ -20,5 +20,9 @@ module Api
       return @connect.items
     end
 
+    def item item_id
+      return @connect.item(item_id)
+    end
+
   end
 end
