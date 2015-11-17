@@ -27,6 +27,52 @@ module Api
       end
     end
 
+    # square 'itemizations'
+    def line_items order_id
+      response = query({
+        :endpoint => "/v1/me/payments/#{order_id}",
+        :method => :GET,
+        :params => {
+          :headers => {
+            "Authorization" => "Bearer #{@access_token}",
+            "Accept" => "application/json"
+          }
+        }
+        })
+      response = response.itemizations
+    end
+
+    # sqaure 'payments'
+    def orders
+      response = query({
+        :endpoint => "/v1/me/payments",
+        :method => :GET,
+        :params => {
+          :default_params => {
+            :order => "ASC"
+          },
+          :headers => {
+             "Authorization" => "Bearer #{@access_token}",
+             "Accept" => "application/json"
+          }
+        }
+        })
+    end
+
+    # square 'payment'
+    def order order_id
+      response = query({
+        :endpoint => "/v1/me/payments/#{order_id}",
+        :method => :GET,
+        :params => {
+          :headers => {
+             "Authorization" => "Bearer #{@access_token}",
+             "Accept" => "application/json"
+          }
+        }
+        })
+    end
+
     # square 'items'
     def items
       items = []
@@ -71,7 +117,6 @@ module Api
       unique_items = []
 
       for item in response
-        binding.pry
         if seen_item_ids.include? item['id']
           next
         end

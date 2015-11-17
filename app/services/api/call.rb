@@ -16,6 +16,18 @@ module Api
       end
     end
 
+    def line_items order_id
+      @connect.line_items(order_id)
+    end
+
+    def orders
+      @connect.orders
+    end
+
+    def order order_id
+      @conndect.order(order_id)
+    end
+
     def items
       return @connect.items
     end
