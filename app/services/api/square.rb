@@ -44,19 +44,57 @@ module Api
 
     # sqaure 'payments'
     def orders
-      response = query({
-        :endpoint => "/v1/me/payments",
-        :method => :GET,
-        :params => {
-          :default_params => {
-            :order => "ASC"
-          },
-          :headers => {
-             "Authorization" => "Bearer #{@access_token}",
-             "Accept" => "application/json"
+      more_results = true
+      request_query = ''
+
+      while more_results do
+        response = query({
+          :endpoint => "/v1/me/payments",
+          :method => :GET,
+          :params => {
+            :default_params => {
+              :order => "ASC"
+            },
+            :headers => {
+               "Authorization" => "Bearer #{@access_token}",
+               "Accept" => "application/json"
+            },
+            :query => "#{request_query}"
           }
-        }
-        })
+          })
+        # Check whether pagination information is included in a response header, indicating more results
+        if @headers.has_key?(:link)
+          pagination_header = @headers[:link]
+
+          if pagination_header.include? "rel='next'"
+            # Extract the next batch URL from the header.
+            #
+            # Pagination headers have the following format:
+            # <https://connect.squareup.com/v1/MERCHANT_ID/items?batch_token=BATCH_TOKEN>;rel='next'
+            # This line extracts the URL from the angle brackets surrounding it.
+            request_path = pagination_header.split('<')[1].split('>')[0]
+            request_query = request_path.split('?')[1]
+          else
+            more_results = false
+          end
+        else
+          more_results = false
+        end
+      end
+      # Remove potential duplicate values from the list of items
+      seen_order_ids = Set.new
+      unique_orders = []
+
+      for order in response
+        if seen_order_ids.include? order['id']
+          next
+        end
+        seen_order_ids.add(order['id'])
+        unique_orders << order
+      end
+
+      return unique_orders
+
     end
 
     # square 'payment'
@@ -75,7 +113,6 @@ module Api
 
     # square 'items'
     def items
-      items = []
       more_results = true
       request_query = ''
 
