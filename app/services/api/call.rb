@@ -3,11 +3,11 @@ module Api
 
     attr_accessor :connect
 
-    def initialize(auth)
-      @authentication = auth
-      @provider = auth.provider
-      @access_token = auth.token
-      @merchant_id = auth.merchant_id
+    def initialize(authentication)
+      @authentication = authentication
+      @provider = authentication.provider
+      @access_token = authentication.token
+      @merchant_id = authentication.merchant_id
 
       if @provider == "clover"
         @connect = Api::Clover.new(@access_token, @merchant_id)
@@ -29,11 +29,11 @@ module Api
     end
 
     def items
-      return @connect.items
+      @connect.items
     end
 
     def item item_id
-      return @connect.item(item_id)
+      @connect.item(item_id)
     end
 
   end
