@@ -1,10 +1,6 @@
 class Item < ActiveRecord::Base
   belongs_to :user
-
-  def test_method
-  	puts self
-  end
-
+  validates :item_id, uniqueness: true 
 
   def self.sync_with_api items
   	active_item_ids = []
@@ -28,6 +24,7 @@ class Item < ActiveRecord::Base
   def self.create_from_api item
     self.find_or_create_by!(item_id: item['id']) do |i|
       i.name = item['name']
+    end
   end
 
 end
