@@ -7,16 +7,11 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<div class="container">
- 	<div class="masthead">
-		<%= render 'layouts/header' %>
-    	<h3 class="muted"><%= link_to "baristavision", root_path %></h3>
-    	<h5 class="muted">A demo frontend for baristavision.</h5>
-  	</div>
-  	<hr />
-  	<%= yield %>
-</div>
+  
+  <%= render 'application/navbar' %>
+  <div class="container">
+    <%= yield %>
+  </div>
 
 </body>
 </html>

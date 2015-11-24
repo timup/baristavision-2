@@ -3,3 +3,8 @@
 @import "normalize-rails";
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+  padding-top: 50px;
+}

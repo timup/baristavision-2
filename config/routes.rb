@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'dashboard' => "dashboard#index"
+
   get 'home' => 'high_voltage/pages#show', id: 'home'
 
   get 'authentication' => "authentications#index"
