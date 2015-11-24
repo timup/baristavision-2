@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'orders' => "orders#index"
+
   get 'dashboard' => "dashboard#index"
 
   get 'home' => 'high_voltage/pages#show', id: 'home'
