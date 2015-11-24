@@ -1,5 +1,7 @@
 class Item < ActiveRecord::Base
   belongs_to :user
+  has_many :line_items
+
   validates :item_id, uniqueness: true 
 
   def self.sync_with_api items
@@ -16,7 +18,7 @@ class Item < ActiveRecord::Base
     archive_item_ids = user_item_ids - active_item_ids
     for item_id in archive_item_ids
       item = Item.find_by(item_id: item_id)
-      # create class method to toggle 
+      # create class method to toggle soft delete/display
       # item.soft_delete
     end
   end
