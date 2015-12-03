@@ -7,12 +7,12 @@ class Order < ActiveRecord::Base
   def self.sync_with_api orders
   	for order in orders
   		create_from_api(order)
-  		add_line_items(order)
   	end
   end
 
   def self.create_from_api order
   	self.find_or_create_by!(order_id: order['id'])
+    add_line_items(order)
   end
 
   def self.add_line_items order
